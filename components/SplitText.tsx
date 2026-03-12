@@ -37,7 +37,7 @@ const SplitText = ({
   tag?: string;
   onLetterAnimationComplete?: () => void;
 }) => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLParagraphElement | null>(null);
   const animationCompletedRef = useRef(false);
   const onCompleteRef = useRef(onLetterAnimationComplete);
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -62,7 +62,9 @@ const SplitText = ({
       if (!ref.current || !text || !fontsLoaded) return;
       // Prevent re-animation if already completed
       if (animationCompletedRef.current) return;
-      const el = ref.current;
+      const el = ref.current as HTMLParagraphElement & {
+        _rbsplitInstance?: GSAPSplitText | null;
+      };
 
       if (el._rbsplitInstance) {
         try {
@@ -85,8 +87,8 @@ const SplitText = ({
             : `+=${marginValue}${marginUnit}`;
       const start = `top ${startPct}%${sign}`;
 
-      let targets;
-      const assignTargets = self => {
+      let targets: Element[] | NodeListOf<Element> | undefined;
+      const assignTargets = (self: GSAPSplitText) => {
         if (splitType.includes('chars') && self.chars.length) targets = self.chars;
         if (!targets && splitType.includes('words') && self.words.length) targets = self.words;
         if (!targets && splitType.includes('lines') && self.lines.length) targets = self.lines;
@@ -103,6 +105,7 @@ const SplitText = ({
         reduceWhiteSpace: false,
         onSplit: self => {
           assignTargets(self);
+          if (!targets) return;
           return gsap.fromTo(
             targets,
             { ...from },
@@ -160,13 +163,13 @@ const SplitText = ({
   );
 
   const renderTag = () => {
-    const style = {
-      textAlign,
+    const style: React.CSSProperties = {
+      textAlign: textAlign as React.CSSProperties['textAlign'],
       wordWrap: 'break-word',
       willChange: 'transform, opacity'
     };
     const classes = `split-parent overflow-hidden inline-block whitespace-normal ${className}`;
-    const Tag = (tag || 'p');
+    const Tag = (tag || 'p') as 'p';
 
     return (
       <Tag ref={ref} style={style} className={classes}>
