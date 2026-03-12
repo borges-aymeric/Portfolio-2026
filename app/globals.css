@@ -1,0 +1,372 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --font-inter: 'Inter', sans-serif;
+  --font-boldonse: 'Boldonse', sans-serif;
+  --font-jetbrains: 'JetBrains Mono', monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #1A0005;
+  color: #FFECD1;
+  font-family: var(--font-jetbrains);
+  overflow-x: hidden;
+}
+
+/* Titres et grandes sections avec Boldonse */
+h1, h2, h3, h4, h5, h6,
+.project-title,
+.menu-item-link,
+.logo-shine,
+.text-title,
+.text-heading {
+  font-family: var(--font-boldonse);
+}
+
+/* Texte normal avec JetBrains Mono */
+p, span, a, li, div, button,
+.project-description,
+.text-body,
+.text-content {
+  font-family: var(--font-jetbrains);
+}
+
+/* Grain texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Smooth scroll */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Hide scrollbar */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* 3D Extrusion effect for letters */
+@keyframes letterExtrusion {
+  0%, 100% {
+    transform: translateZ(0);
+  }
+  50% {
+    transform: translateZ(20px);
+  }
+}
+
+.letter-3d {
+  position: relative;
+  display: inline-block;
+}
+
+.letter-3d::before {
+  content: attr(data-letter);
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: rgba(0, 0, 0, 0.1);
+  transform: translateZ(-30px);
+  z-index: -1;
+}
+
+.letter-3d::after {
+  content: attr(data-letter);
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: rgba(0, 0, 0, 0.2);
+  transform: translateZ(-60px);
+  z-index: -2;
+}
+
+/* Scrollbar stylisée pour la modal */
+.modal-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #ffecd1 transparent;
+}
+
+.modal-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.modal-scrollbar::-webkit-scrollbar-thumb {
+  background: #ffecd1;
+  border-radius: 10px;
+}
+
+.modal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #ffecd1;
+  opacity: 0.8;
+}
+
+/* Header Animations */
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(30px, -30px) rotate(120deg); }
+  66% { transform: translate(-20px, 20px) rotate(240deg); }
+}
+
+@keyframes shine {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Logo shine effect */
+.logo-shine {
+  background: linear-gradient(90deg, #fff 0%, #9ca3af 50%, #fff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.logo-shine:hover {
+  animation: shine 1.5s linear infinite;
+}
+
+/* Menu item link underline */
+.menu-item-link {
+  position: relative;
+  display: inline-block;
+}
+
+.menu-item-link::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: #FFECD1;
+  transition: width 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.menu-item-link:hover::before {
+  width: 100%;
+}
+
+/* Social icon hover effect */
+.social-icon {
+  position: relative;
+}
+
+.social-icon::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.social-icon:hover::before {
+  width: 60px;
+  height: 60px;
+  border-color: rgba(99, 102, 241, 0.3);
+  transform: translate(-50%, -50%) rotate(90deg) scale(1.2);
+}
+
+/* Burger menu toggle - Spin Animation */
+.burger-toggle {
+  position: relative;
+  width: 24px;
+  height: calc(3px * 3 + 6px * 2);
+  flex-shrink: 0;
+}
+
+.burger-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: calc(3px / 2);
+  background: #fff;
+  opacity: 1;
+  transition: none 0.35s cubic-bezier(0.5, -0.35, 0.35, 1.5) 0s;
+}
+
+/* Top bar - Spin Animation */
+.burger-bar-top {
+  bottom: calc(50% + 4px + 3px / 2);
+  transition-property: bottom, transform;
+  transition-delay: calc(0s + 0.35s), 0s;
+}
+
+/* Middle bar */
+.burger-bar-middle {
+  top: calc(50% - 3px / 2);
+  transition-property: opacity;
+  transition-delay: calc(0s + 0.35s);
+}
+
+/* Bottom bar - Spin Animation */
+.burger-bar-bottom {
+  top: calc(50% + 4px + 3px / 2);
+  transition-property: top, transform;
+  transition-delay: calc(0s + 0.35s), 0s;
+}
+
+/* Open state - Top bar */
+.burger-open .burger-bar-top {
+  bottom: calc(50% - 3px / 2);
+  transform: rotate(135deg);
+  transition-delay: 0s, calc(0s + 0.35s);
+}
+
+/* Open state - Middle bar */
+.burger-open .burger-bar-middle {
+  opacity: 0;
+  transition-duration: 0s;
+  transition-delay: calc(0s + 0.35s);
+}
+
+/* Open state - Bottom bar */
+.burger-open .burger-bar-bottom {
+  top: calc(50% - 3px / 2);
+  transform: rotate(225deg);
+  transition-delay: 0s, calc(0s + 0.35s);
+}
+
+/* Hover effects - removed for white button style */
+
+/* Animation pour la preview de certification */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: rotate(10deg) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(2deg) scale(1);
+  }
+}
+
+/* Skills 3D Card Flip Effect */
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+.skill-card-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-card:hover .skill-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Project Button Curtain Effect */
+.project-button-curtain {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.project-button-curtain::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: #FFECD1;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+
+.project-button-curtain:hover::before {
+  width: 100%;
+}
+
+.project-button-curtain:hover {
+  color: #1A0005;
+}
+
+.project-button-curtain span {
+  position: relative;
+  z-index: 1;
+}
+
