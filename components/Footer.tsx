@@ -77,7 +77,7 @@ export default function Footer() {
         className="footer-content relative inline-flex items-center gap-3 px-10 py-5 bg-[#1A0005] text-[#FFECD1] font-bold text-lg rounded-full hover:bg-[#1A0005]/80 transition-colors border-2 border-[#FFECD1]"
       >
         <Mail className="w-5 h-5" />
-        <span>Get in touch</span>
+        <span>Me contacter</span>
       </a>
 
       <div className="footer-content flex gap-6 mt-16">
