@@ -92,7 +92,7 @@ export default function About() {
         {/* Titre centré sans animation */}
         <div className="text-center">
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold" style={{ fontFamily: "'Boldonse', sans-serif" }}>
-            About Me
+            À PROPOS
           </h2>
         </div>
         
@@ -161,7 +161,7 @@ export default function About() {
                 >
                   <div className="shadow-2xl max-w-xs">
                     <img
-                      src="/images/opquast_certification.webp"
+                      src="/documents/CV_Aymeric_Borges.webp"
                       alt="CV Preview"
                       className="w-full h-auto max-h-64 object-contain"
                       onError={(e) => {
@@ -174,7 +174,7 @@ export default function About() {
               )}
               
               <a
-                href="/cv.pdf"
+                href="/documents/CV_Aymeric_Borges.pdf"
                 download
                 onMouseEnter={() => setShowPreview(true)}
                 onMouseLeave={() => setShowPreview(false)}

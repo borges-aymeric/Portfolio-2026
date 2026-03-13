@@ -18,7 +18,12 @@ export default function Header() {
   const contactInfoRef = useRef<HTMLDivElement>(null);
   const bottomLineRef = useRef<HTMLDivElement>(null);
 
-  const menuItems = ["Home", "About", "Works", "Contact"];
+  const menuItems = [
+    { label: "Accueil", target: "#" },
+    { label: "À propos", target: "#about" },
+    { label: "Projets", target: "#works" },
+    { label: "Contact", target: "#contact" },
+  ];
   const socialLinks = [
     { icon: Github, href: "https://github.com/borges-aymeric", label: "GitHub" },
     { icon: Linkedin, href: "https://www.linkedin.com/in/aymeric-borges-898825229/", label: "LinkedIn" },
@@ -229,9 +234,9 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-6 header-item">
             {menuItems.map((item, index) => (
               <a
-                key={item}
-                href={item === "Home" ? "#" : `#${item.toLowerCase()}`}
-                onClick={(e) => smoothScrollTo(item === "Home" ? "#" : `#${item.toLowerCase()}`, e)}
+                key={item.target}
+                href={item.target}
+                onClick={(e) => smoothScrollTo(item.target, e)}
                 className="relative text-xl md:text-xl font-bold text-[#FFECD1]/80 hover:text-[#FFECD1] transition-colors duration-300 group"
                 style={{
                   animation: `fadeInDown 0.6s ease-out ${0.5 + index * 0.1}s both`,
@@ -239,7 +244,7 @@ export default function Header() {
                   letterSpacing: "0.05em",
                 }}
               >
-                {item}
+                {item.label}
                 <span className="absolute top-8 left-0 w-0 h-0.5 bg-[#FFECD1] transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
@@ -295,33 +300,33 @@ export default function Header() {
         />
 
         {/* Menu Content */}
-        <div className="relative flex flex-col items-start justify-center h-full px-8 md:px-16">
-          <div className="flex flex-col gap-6 mb-16">
-            {menuItems.map((item, index) => (
+          <div className="relative flex flex-col items-start justify-center h-full px-8 md:px-16">
+            <div className="flex flex-col gap-6 mb-16">
+              {menuItems.map((item, index) => (
                 <a
-                  key={item}
+                  key={item.target}
                   ref={(el) => {
                     menuItemsRef.current[index] = el;
                   }}
-                  href={item === "Home" ? "#" : `#${item.toLowerCase()}`}
-                  onClick={(e) => smoothScrollTo(item === "Home" ? "#" : `#${item.toLowerCase()}`, e)}
+                  href={item.target}
+                  onClick={(e) => smoothScrollTo(item.target, e)}
                   className="menu-item-link"
                   style={{
-                  opacity: 0,
-                  transform: "translateX(-80px) rotateY(-15deg)",
-                  transition: "all 0.8s cubic-bezier(0.76, 0, 0.24, 1)",
-                  willChange: "transform, opacity",
-                }}
-              >
-                <span className="flex items-baseline gap-4">
-                  <span className="font-mono text-2xl md:text-3xl text-indigo-500" style={{ opacity: 0.6 }}>
-                    {String(index + 1).padStart(2, "0")}
+                    opacity: 0,
+                    transform: "translateX(-80px) rotateY(-15deg)",
+                    transition: "all 0.8s cubic-bezier(0.76, 0, 0.24, 1)",
+                    willChange: "transform, opacity",
+                  }}
+                >
+                  <span className="flex items-baseline gap-4">
+                    <span className="font-mono text-2xl md:text-3xl text-indigo-500" style={{ opacity: 0.6 }}>
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-5xl md:text-7xl font-bold text-[#FFECD1]">{item.label}</span>
                   </span>
-                  <span className="text-5xl md:text-7xl font-bold text-[#FFECD1]">{item}</span>
-                </span>
-              </a>
-            ))}
-          </div>
+                </a>
+              ))}
+            </div>
 
           <div className="flex gap-6 mb-8">
             {socialLinks.map((social, index) => {

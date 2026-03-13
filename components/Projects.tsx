@@ -34,7 +34,7 @@ const projects: Project[] = [
     id: 2,
     title: "BUGTRACKER",
     description: "BugTracker est une application web de gestion de tickets pensée pour suivre et traiter les bugs d'un projet logiciel, avec trois espaces distincts pour le testeur, le développeur et l'administrateur.",
-    technologies: ["React Native", "TypeScript", "Firebase", "Redux"],
+    technologies: ["PHP","HTML"],
     githubUrl: "https://github.com/borges-aymeric/Bugtracker",
     image: "images/project_bugtracker/cover_bugtracker.webp",
   },

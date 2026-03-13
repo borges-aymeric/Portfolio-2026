@@ -53,7 +53,7 @@ export default function Marquee() {
 
         <div className="flex whitespace-nowrap overflow-hidden mt-4 origin-right" style={{ transform: 'rotate(-2deg)' }}>
           <div ref={marquee2} className="flex text-7xl md:text-9xl font-black text-[#FFECD1] select-none will-change-transform">
-            {renderSpans("FULL STACK DEV", 12)}
+            {renderSpans("DÉVELOPPEUR WEB & DESIGNER", 12)}
           </div>
         </div>
       </div>
