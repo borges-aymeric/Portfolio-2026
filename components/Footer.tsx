@@ -72,7 +72,7 @@ export default function Footer() {
       </h2>
 
       <a
-        href="mailto:aymeric.borges@protonmail.fr"
+        href="mailto:aymeric.borges@protonmail.com"
         ref={buttonRef as any}
         className="footer-content relative inline-flex items-center gap-3 px-10 py-5 bg-[#1A0005] text-[#FFECD1] font-bold text-lg rounded-full hover:bg-[#1A0005]/80 transition-colors border-2 border-[#FFECD1]"
       >
@@ -98,7 +98,7 @@ export default function Footer() {
           <Linkedin className="w-5 h-5" />
         </a>
         <a
-          href="mailto:aymeric.borges@protonmail.fr"
+          href="mailto:aymeric.borges@protonmail.com"
           className="w-12 h-12 flex items-center justify-center border border-[#FFECD1]/30 rounded-full hover:border-[#FFECD1] transition-colors"
         >
           <Mail className="w-5 h-5" />

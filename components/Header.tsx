@@ -27,7 +27,7 @@ export default function Header() {
   const socialLinks = [
     { icon: Github, href: "https://github.com/borges-aymeric", label: "GitHub" },
     { icon: Linkedin, href: "https://www.linkedin.com/in/aymeric-borges-898825229/", label: "LinkedIn" },
-    { icon: Mail, href: "mailto:aymeric.borges@protonmail.fr", label: "Email" },
+    { icon: Mail, href: "mailto:aymeric.borges@protonmail.com", label: "Email" },
   ];
 
   // Smooth scroll function
@@ -365,7 +365,7 @@ export default function Header() {
               willChange: "transform, opacity",
             }}
           >
-            <p>aymeric.borges@protonmail.fr</p>
+            <p>aymeric.borges@protonmail.com</p>
             <p>07 82 83 44 84</p>
           </div>
 
