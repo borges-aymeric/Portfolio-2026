@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface Skill {
   name: string;
-  logo: string; // URL ou chemin vers le logo
+  logo: string;
 }
 
 const skills: Skill[] = [
@@ -62,7 +62,6 @@ export default function Skills() {
         Compétences
       </h2>
       
-      {/* Container rectangle avec grille de cartes - Full width */}
       <div className="w-full">
         <div className="bg-[#1A0005]/80 border border-[#FFECD1]/30 rounded-2xl p-6 md:p-8 mx-6 md:mx-8 lg:mx-12">
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-3 md:gap-4 ">
@@ -73,7 +72,6 @@ export default function Skills() {
                 style={{ perspective: "1000px" }}
               >
                 <div className="skill-card-inner relative w-full h-full transition-transform duration-500 preserve-3d">
-                  {/* Face avant - Logo */}
                   <div
                     className="skill-card-front absolute inset-0 w-full h-full backface-hidden flex items-center justify-center p-2 rounded-lg border border-[#FFECD1]/30 hover:border-[#FFECD1]/50 transition-colors"
                     style={{
@@ -86,7 +84,6 @@ export default function Skills() {
                         alt={skill.name}
                         className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 object-contain"
                         onError={(e) => {
-                          // Fallback si l'image ne charge pas
                           const target = e.target as HTMLImageElement;
                           target.style.display = "none";
                           const parent = target.parentElement;
@@ -98,7 +95,6 @@ export default function Skills() {
                     </div>
                   </div>
 
-                  {/* Face arrière - Nom */}
                   <div
                     className="skill-card-back absolute inset-0 w-full h-full backface-hidden flex items-center justify-center p-2 rounded-lg border border-[#FFECD1]/30 hover:border-[#FFECD1]/50 transition-colors rotate-y-180"
                     style={{

@@ -15,8 +15,6 @@ export default function About() {
   const [showPreview, setShowPreview] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  // Animation du texte gérée par le composant SplitText
-  // Gestion de la preview du CV au survol du bouton
   const previewRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -27,26 +25,21 @@ export default function About() {
     }
   };
 
-  // Effet parallaxe sur la carte au mouvement de la souris (même en dehors de la carte)
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!imageContainerRef.current || !container.current) return;
 
-      // Calculer la position du curseur par rapport à la section entière
       const sectionRect = container.current.getBoundingClientRect();
       const centerX = sectionRect.left + sectionRect.width / 2;
       const centerY = sectionRect.top + sectionRect.height / 2;
       
-      // Calculer le déplacement relatif au centre de la section
       const deltaX = e.clientX - centerX;
       const deltaY = e.clientY - centerY;
       
-      // Normaliser et appliquer un facteur de déplacement (max 40px)
       const maxDistance = Math.max(sectionRect.width, sectionRect.height) / 2;
       const moveX = (deltaX / maxDistance) * 40;
       const moveY = (deltaY / maxDistance) * 40;
 
-      // Animer la carte entière pour suivre le curseur
       gsap.to(imageContainerRef.current, {
         x: moveX,
         y: moveY,
@@ -58,7 +51,6 @@ export default function About() {
     const handleMouseLeave = () => {
       if (!imageContainerRef.current) return;
       
-      // Remettre la carte au centre quand la souris quitte la section
       gsap.to(imageContainerRef.current, {
         x: 0,
         y: 0,
@@ -89,16 +81,13 @@ export default function About() {
       className="min-h-screen py-32 px-6 container mx-auto"
     >
       <div className="space-y-16">
-        {/* Titre centré sans animation */}
         <div className="text-center">
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold" style={{ fontFamily: "'Boldonse', sans-serif" }}>
             À PROPOS
           </h2>
         </div>
         
-        {/* Image et texte côte à côte */}
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-16 items-start">
-          {/* Image en format carte (panoramique) */}
           <div 
             ref={imageContainerRef}
             className="relative w-full max-w-xl mx-auto md:mx-0 h-[500px] sm:h-[500px] md:h-[550px] lg:h-[650px] rounded-lg overflow-hidden bg-gradient-to-br from-[#1A0005]/60 to-[#1A0005]/80 border border-[#FFECD1]/30"
@@ -113,7 +102,6 @@ export default function About() {
             />
           </div>
           
-          {/* Texte - prend toute la place libre avec police fine mais texte gros */}
           <div className="w-full space-y-6">
             <div className="space-y-4">
               <SplitText
@@ -145,9 +133,7 @@ export default function About() {
                 tag="p"
               />
             </div>
-            {/* Bouton Voir mon CV avec preview */}
             <div className="relative">
-              {/* Preview du CV qui suit le curseur */}
               {showPreview && (
                 <div
                   ref={previewRef}

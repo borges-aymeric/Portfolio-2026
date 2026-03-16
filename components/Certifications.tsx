@@ -14,8 +14,8 @@ interface Certification {
   score: number;
   maxScore: number;
   certificateUrl?: string;
-  certificatePreview?: string; // URL de l'image de preview (JPG)
-  logo?: string; // URL du logo
+  certificatePreview?: string;
+  logo?: string;
   date?: string;
 }
 
@@ -25,9 +25,9 @@ const certifications: Certification[] = [
     description: "Intégrer les règles et le vocabulaire assurance qualité web dans sa pratique professionnelle",
     score: 850,
     maxScore: 1000,
-    certificateUrl: "/documents/opquast_certification.pdf", // URL du PDF
-    certificatePreview: "/images/opquast_certification.webp", // Image de preview (WebP)
-    logo: "/images/opquast.webp", // Logo Opquast
+    certificateUrl: "/documents/opquast_certification.pdf",
+    certificatePreview: "/images/opquast_certification.webp",
+    logo: "/images/opquast.webp",
     date: "2024",
   },
 ];
@@ -85,7 +85,6 @@ export default function Certifications() {
       </h2>
 
       <div className="max-w-4xl mx-auto space-y-6 relative">
-        {/* Preview de la certification qui suit le curseur */}
         {hoveredCert !== null && certifications[hoveredCert]?.certificatePreview && (
           <div
             ref={previewRef}
@@ -140,8 +139,6 @@ export default function Certifications() {
                   <p className="text-[#FFECD1]/80 mb-4 text-sm md:text-base">
                     {cert.description}
                   </p>
-                  
-                  {/* Score */}
                   <div className="flex items-center gap-4 mb-4">
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-2">
@@ -150,7 +147,6 @@ export default function Certifications() {
                           {cert.score}/{cert.maxScore}
                         </span>
                       </div>
-                      {/* Barre de progression */}
                       <div className="w-full bg-[#FFECD1]/20 rounded-full h-3 overflow-hidden">
                         <div
                           className={`h-full rounded-full transition-all duration-500 ${
@@ -171,7 +167,6 @@ export default function Certifications() {
                   )}
                 </div>
 
-                {/* Flèche pour voir la certification */}
                 {cert.certificateUrl && (
                   <a
                     href={cert.certificateUrl}

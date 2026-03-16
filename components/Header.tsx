@@ -10,8 +10,6 @@ export default function Header() {
   const [isVisible, setIsVisible] = useState(true);
   const lastScrollY = useRef(0);
   const { isModalOpen } = useModal();
-  
-  // Refs pour animations du menu
   const menuOverlayRef = useRef<HTMLDivElement>(null);
   const menuItemsRef = useRef<(HTMLAnchorElement | null)[]>([]);
   const socialRef = useRef<(HTMLAnchorElement | null)[]>([]);
@@ -30,11 +28,9 @@ export default function Header() {
     { icon: Mail, href: "mailto:aymeric.borges@protonmail.com", label: "Email" },
   ];
 
-  // Smooth scroll function
   const smoothScrollTo = (targetId: string, e?: React.MouseEvent) => {
     e?.preventDefault();
     
-    // Si c'est Home, scroll vers le haut
     if (targetId === "#home" || targetId === "#") {
       if (typeof window !== "undefined" && (window as any).lenis) {
         (window as any).lenis.scrollTo(0, {
@@ -63,25 +59,20 @@ export default function Header() {
     setIsMenuOpen(false);
   };
 
-  // Scroll detection avec effet rideau
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setIsScrolled(currentScrollY > 50);
       
-      // Toujours visible en haut de la page
       if (currentScrollY < 50) {
         setIsVisible(true);
         lastScrollY.current = currentScrollY;
         return;
       }
       
-      // Effet rideau : cache en scrollant vers le bas, affiche en remontant
       if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-        // Scroll vers le bas - cache la navbar
         setIsVisible(false);
       } else if (currentScrollY < lastScrollY.current) {
-        // Scroll vers le haut - affiche la navbar
         setIsVisible(true);
       }
       
@@ -92,7 +83,6 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Scroll lock when menu is open
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -104,22 +94,18 @@ export default function Header() {
     };
   }, [isMenuOpen]);
 
-  // Menu animations (Overlay, Links, etc.)
   useEffect(() => {
     if (!menuOverlayRef.current) return;
 
     if (isMenuOpen) {
-      // Open sequence
       const overlay = menuOverlayRef.current;
       overlay.style.display = "block";
       overlay.style.pointerEvents = "auto";
 
-      // 0ms: Overlay fade in
       setTimeout(() => {
         overlay.style.opacity = "1";
       }, 10);
 
-      // 200ms: Menu items appear
       menuItemsRef.current.forEach((item, index) => {
         if (item) {
           setTimeout(() => {
@@ -129,14 +115,12 @@ export default function Header() {
         }
       });
 
-      // 400ms: Bottom line
       if (bottomLineRef.current) {
         setTimeout(() => {
           bottomLineRef.current!.style.transform = "scaleX(1)";
         }, 400);
       }
 
-      // 500ms: Social icons
       socialRef.current.forEach((icon, index) => {
         if (icon) {
           setTimeout(() => {
@@ -146,7 +130,6 @@ export default function Header() {
         }
       });
 
-      // 700ms: Contact info
       if (contactInfoRef.current) {
         setTimeout(() => {
           contactInfoRef.current!.style.opacity = "1";
@@ -154,21 +137,17 @@ export default function Header() {
         }, 700);
       }
     } else {
-      // Close sequence
       const overlay = menuOverlayRef.current;
 
-      // Bottom line
       if (bottomLineRef.current) {
         bottomLineRef.current.style.transform = "scaleX(0)";
       }
 
-      // Contact info
       if (contactInfoRef.current) {
         contactInfoRef.current.style.opacity = "0";
         contactInfoRef.current.style.transform = "translateY(20px)";
       }
 
-      // Social icons
       socialRef.current.forEach((icon) => {
         if (icon) {
           icon.style.opacity = "0";
@@ -176,7 +155,6 @@ export default function Header() {
         }
       });
 
-      // Menu items
       menuItemsRef.current.forEach((item) => {
         if (item) {
           item.style.opacity = "0";
@@ -184,7 +162,6 @@ export default function Header() {
         }
       });
 
-      // Overlay fade out
       setTimeout(() => {
         overlay.style.opacity = "0";
         setTimeout(() => {
@@ -202,7 +179,6 @@ export default function Header() {
   return (
     <>
 
-      {/* Header */}
       <header
         className="fixed top-4 left-4 right-4 z-[100] transition-all duration-500"
         style={{
@@ -215,7 +191,6 @@ export default function Header() {
             ? "bg-[#1A0005]/80 backdrop-blur-md border-[#FFECD1]/30"
             : "bg-[#1A0005]/40 backdrop-blur-sm border-[#FFECD1]/20"
         }`}>
-          {/* Logo - centré verticalement dans la nav */}
           <div className="header-item flex items-center">
             <a
               href="#"
@@ -230,7 +205,6 @@ export default function Header() {
             </a>
           </div>
 
-          {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-6 header-item">
             {menuItems.map((item, index) => (
               <a
@@ -250,7 +224,6 @@ export default function Header() {
             ))}
           </div>
 
-          {/* Mobile Menu Button - Styled MENU Button */}
           <button
             className="md:hidden relative flex items-center gap-4 px-4 py-2 bg-transparent rounded-full border-2 border-[#FFECD1] z-[101] hover:border-[#FFECD1]/70 transition-all duration-300 group"
             onClick={toggleMenu}
@@ -267,7 +240,6 @@ export default function Header() {
         </nav>
       </header>
 
-      {/* Full Screen Menu Overlay */}
       <div
         ref={menuOverlayRef}
         className="fixed inset-0 md:hidden z-[99] overflow-hidden"
@@ -282,7 +254,6 @@ export default function Header() {
           if (e.target === menuOverlayRef.current) setIsMenuOpen(false);
         }}
       >
-        {/* Background decorative elements */}
         <div
           className="absolute top-[-3rem] left-[-3rem] w-48 h-48 bg-indigo-500 rounded-full blur-[30px] opacity-10"
           style={{ animation: "float 20s infinite ease-in-out" }}
@@ -299,7 +270,6 @@ export default function Header() {
           }}
         />
 
-        {/* Menu Content */}
           <div className="relative flex flex-col items-start justify-center h-full px-8 md:px-16">
             <div className="flex flex-col gap-6 mb-16">
               {menuItems.map((item, index) => (

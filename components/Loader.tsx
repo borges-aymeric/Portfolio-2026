@@ -15,10 +15,9 @@ export default function Loader() {
   const bubbleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Simulate loading progress over 10 seconds
-    const totalDuration = 5000; // 5 seconds in milliseconds
-    const interval = 50; // Update every 50ms for smooth progress
-    const increment = (100 / totalDuration) * interval; // Calculate increment per interval
+    const totalDuration = 5000;
+    const interval = 50;
+    const increment = (100 / totalDuration) * interval;
 
     const progressInterval = setInterval(() => {
       setProgress((prev) => {
@@ -40,9 +39,7 @@ export default function Loader() {
   useGSAP(() => {
     if (!containerRef.current) return;
 
-    // Animate letters independently with dynamic, fluid motion
     if (letterARef.current && letterBRef.current) {
-      // Letter A animation - more dynamic floating effect
       gsap.to(letterARef.current, {
         y: -40,
         rotation: -15,
@@ -53,7 +50,6 @@ export default function Loader() {
         ease: "sine.inOut",
       });
 
-      // Letter B animation - opposite motion with more movement
       gsap.to(letterBRef.current, {
         y: 40,
         rotation: 15,
@@ -65,7 +61,6 @@ export default function Loader() {
         delay: 0.4,
       });
 
-      // Horizontal movement - more pronounced
       gsap.to(letterARef.current, {
         x: -20,
         duration: 1.8,
@@ -83,7 +78,6 @@ export default function Loader() {
         delay: 0.6,
       });
 
-      // Add vertical wave motion for more dynamism
       gsap.to(letterARef.current, {
         y: "+=30",
         duration: 0.9,
@@ -102,11 +96,9 @@ export default function Loader() {
       });
     }
 
-    // When loading is complete
     if (isComplete) {
       const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
-      // Kill all ongoing letter animations smoothly
       if (letterARef.current) {
         gsap.killTweensOf(letterARef.current);
       }
@@ -114,7 +106,6 @@ export default function Loader() {
         gsap.killTweensOf(letterBRef.current);
       }
 
-      // Hide percentage smoothly
       tl.to(percentageRef.current, {
         opacity: 0,
         y: 20,
@@ -122,7 +113,6 @@ export default function Loader() {
         ease: "power2.inOut",
       });
 
-      // Stop letter animations and center them smoothly
       tl.to([letterARef.current, letterBRef.current], {
         x: 0,
         y: 0,
@@ -132,7 +122,6 @@ export default function Loader() {
         ease: "elastic.out(1, 0.6)",
       }, "-=0.2");
 
-      // Animate bubble appearing from bottom with bounce
       if (bubbleRef.current) {
         gsap.set(bubbleRef.current, {
           scaleX: 0,
@@ -142,8 +131,6 @@ export default function Loader() {
           display: "block",
         });
 
-        // Bubble appears with realistic bounce effect (squash and stretch)
-        // First bounce up - stretch vertically
         tl.to(bubbleRef.current, {
           scaleY: 1.3,
           scaleX: 0.9,
@@ -152,7 +139,6 @@ export default function Loader() {
           ease: "power2.out",
         }, "-=0.3");
 
-        // Impact on ground - squash horizontally
         tl.to(bubbleRef.current, {
           scaleY: 0.7,
           scaleX: 1.2,
@@ -161,7 +147,6 @@ export default function Loader() {
           ease: "power2.in",
         });
 
-        // Second bounce up - stretch again
         tl.to(bubbleRef.current, {
           scaleY: 1.2,
           scaleX: 0.95,
@@ -170,7 +155,6 @@ export default function Loader() {
           ease: "power2.out",
         });
 
-        // Second impact - squash less
         tl.to(bubbleRef.current, {
           scaleY: 0.8,
           scaleX: 1.15,
@@ -179,7 +163,6 @@ export default function Loader() {
           ease: "power2.in",
         });
 
-        // Third smaller bounce
         tl.to(bubbleRef.current, {
           scaleY: 1.1,
           scaleX: 0.98,
@@ -188,7 +171,6 @@ export default function Loader() {
           ease: "power2.out",
         });
 
-        // Final impact and settle - return to normal shape
         tl.to(bubbleRef.current, {
           scaleY: 0.85,
           scaleX: 1.1,
@@ -197,7 +179,6 @@ export default function Loader() {
           ease: "power2.in",
         });
 
-        // Settle to normal round shape
         tl.to(bubbleRef.current, {
           scaleY: 1,
           scaleX: 1,
@@ -206,9 +187,6 @@ export default function Loader() {
           ease: "elastic.out(1, 0.6)",
         });
 
-        // Expand bubble to fill screen completely (becomes the background)
-        // Use a very large scale to ensure it covers all corners including bottom corners
-        // Scale from center bottom needs to cover diagonal distance to all corners
         tl.to(bubbleRef.current, {
           scaleX: 2500,
           scaleY: 2500,
@@ -216,22 +194,18 @@ export default function Loader() {
           ease: "power3.inOut",
         }, "-=0.1");
 
-        // Change background color from white to black as bubble expands
-        // This ensures no white corners are visible - synchronized with expansion
         tl.to(containerRef.current, {
           backgroundColor: "#FFECD1",
           duration: 2.3,
           ease: "power2.inOut",
         }, "-=2.4");
 
-        // Fade out loader content smoothly during expansion
         tl.to([letterARef.current, letterBRef.current, progressBarRef.current], {
           opacity: 0,
           duration: 0.8,
           ease: "power2.inOut",
         }, "-=2");
 
-        // Fade out entire loader smoothly
         tl.to(containerRef.current, {
           opacity: 0,
           duration: 0.8,
@@ -246,7 +220,6 @@ export default function Loader() {
     }
   }, [isComplete]);
 
-  // Update progress bar width
   useEffect(() => {
     if (progressBarRef.current) {
       gsap.to(progressBarRef.current, {
@@ -262,7 +235,6 @@ export default function Loader() {
       ref={containerRef}
       className="fixed inset-0 z-[100] bg-[#FFECD1] flex flex-col items-center justify-center overflow-hidden"
     >
-      {/* AB Letters */}
       <div className="relative flex items-center justify-center mb-20">
         <span
           ref={letterARef}
@@ -278,7 +250,6 @@ export default function Loader() {
         </span>
       </div>
 
-      {/* Progress Bar - Top */}
       <div className="absolute top-0 left-0 w-full h-1 bg-[#1A0005]/20 overflow-hidden">
         <div
           ref={progressBarRef}
@@ -287,7 +258,6 @@ export default function Loader() {
         />
       </div>
 
-      {/* Percentage */}
       <div
         ref={percentageRef}
         className="absolute bottom-8 right-8 text-6xl md:text-8xl font-black text-[#1A0005]"
@@ -295,7 +265,6 @@ export default function Loader() {
         {Math.round(progress)}%
       </div>
 
-      {/* Bubble that will expand - Hidden until loading is complete */}
       <div
         ref={bubbleRef}
         className="absolute bottom-0 left-1/2 w-32 h-32 bg-[#1A0005] rounded-full opacity-0"

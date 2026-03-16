@@ -26,7 +26,7 @@ export default function ScrollProgress() {
 
     window.addEventListener("scroll", updateProgress);
     window.addEventListener("resize", updateProgress);
-    updateProgress(); // Initial call
+    updateProgress();
 
     return () => {
       window.removeEventListener("scroll", updateProgress);
@@ -36,7 +36,7 @@ export default function ScrollProgress() {
 
   useGSAP(() => {
     if (circleRef.current) {
-      const radius = 26; // Rayon réduit
+      const radius = 26;
       const circumference = 2 * Math.PI * radius;
       const offset = circumference - (progress / 100) * circumference;
 
@@ -48,27 +48,23 @@ export default function ScrollProgress() {
     }
   }, [progress]);
 
-  // Initialiser la rotation une seule fois au montage
   useGSAP(() => {
     if (arrowRef.current) {
       gsap.set(arrowRef.current, { rotation: -45 });
     }
   }, []);
 
-  // Animation de la flèche au hover
   useGSAP(() => {
     if (arrowRef.current) {
       if (isHovered) {
-        // Flèche vers le haut (rotation de -45° à 0°)
         gsap.to(arrowRef.current, {
-          rotation: 0, // Point vers le haut
+          rotation: 0,
           duration: 0.3,
           ease: "power2.out",
         });
       } else {
-        // Flèche en diagonale vers le bas à droite (retour à -45°)
         gsap.to(arrowRef.current, {
-          rotation: -45, // Diagonale vers le bas à droite
+          rotation: -45,
           duration: 0.3,
           ease: "power2.out",
         });
@@ -77,14 +73,12 @@ export default function ScrollProgress() {
   }, [isHovered]);
 
   const handleClick = () => {
-    // Toujours remonter en haut avec Lenis pour un scroll smooth
     if (typeof window !== "undefined" && (window as any).lenis) {
       (window as any).lenis.scrollTo(0, {
         duration: 1.5,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       });
     } else {
-      // Fallback si Lenis n'est pas disponible
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
@@ -98,7 +92,6 @@ export default function ScrollProgress() {
       onClick={handleClick}
     >
       <svg width="60" height="60" viewBox="0 0 60 60" className="transform -rotate-90">
-        {/* Cercle de fond */}
         <circle
           cx="30"
           cy="30"
@@ -107,7 +100,6 @@ export default function ScrollProgress() {
           strokeWidth="2.5"
         />
         
-        {/* Cercle de progression */}
         <circle
           ref={circleRef}
           cx="30"
@@ -122,7 +114,6 @@ export default function ScrollProgress() {
         />
       </svg>
 
-      {/* Flèche au centre */}
       <div
         ref={arrowRef}
         className="absolute top-1/2 left-1/2 pointer-events-none"

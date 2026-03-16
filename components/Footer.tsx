@@ -25,7 +25,6 @@ export default function Footer() {
       },
     });
 
-    // Magnetic button effect
     if (buttonRef.current) {
       const button = buttonRef.current;
 

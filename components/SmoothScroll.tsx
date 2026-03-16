@@ -16,7 +16,6 @@ export default function SmoothScroll() {
       infinite: false,
     });
 
-    // Rendre Lenis accessible globalement
     (window as any).lenis = lenis;
 
     function raf(time: number) {

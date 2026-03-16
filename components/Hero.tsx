@@ -13,21 +13,17 @@ export default function Hero() {
   const secondaryMaskRef = useRef<SVGRectElement>(null);
 
   useGSAP(() => {
-    // Delay to start after loader completes
-    // Loader: 5s loading + 0.3s delay + ~5s exit animation = ~10.3s
     const tl = gsap.timeline({
       delay: 10.5,
     });
 
-    // Animate SVG text writing effect using two masks
     if (svgRef.current && primaryMaskRef.current) {
       const textElements = svgRef.current.querySelectorAll("text");
 
-      // Primary line: AYMERIC BORGES
       const mainText = textElements[0] as SVGTextElement | undefined;
       if (mainText) {
         const bbox = mainText.getBBox();
-        const textWidth = bbox.width + 200; // padding
+        const textWidth = bbox.width + 200;
 
         gsap.set(primaryMaskRef.current, {
           attr: { width: 0, x: bbox.x - 100 },
@@ -40,7 +36,6 @@ export default function Hero() {
         });
       }
 
-      // Secondary line: PORTFOLIO 🚀 2026
       if (secondaryMaskRef.current && textElements[1]) {
         const subText = textElements[1] as SVGTextElement;
         const bboxSub = subText.getBBox();
@@ -57,19 +52,17 @@ export default function Hero() {
             duration: 2,
             ease: "power2.inOut",
           },
-          "-=1.2" // commence juste après la première ligne
+          "-=1.2"
         );
       }
     }
 
-    // Show scroll indicator
     tl.to(scrollIndicator.current, {
       opacity: 1,
       duration: 0.5,
       ease: "power2.out",
     }, "-=0.5");
 
-    // Animate scroll indicator bounce
     gsap.to(scrollIndicator.current, {
       y: 10,
       duration: 1.5,
@@ -85,7 +78,6 @@ export default function Hero() {
       className="min-h-screen flex flex-col items-center justify-center px-6 md:px-12 lg:px-20 relative bg-[#1C0207]"
     >
       <div className="text-center w-full max-w-full px-4">
-        {/* SVG Text - AYMERIC BORGES + PORTFOLIO 2026 */}
         <div className="flex justify-center items-center">
           <svg
             ref={svgRef}
@@ -156,7 +148,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <div
         ref={scrollIndicator}
         className="absolute bottom-10 flex flex-col items-center gap-2 opacity-0"

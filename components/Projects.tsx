@@ -96,17 +96,14 @@ export default function Projects() {
   const scrollPositionRef = useRef<number>(0);
   const { setIsModalOpen } = useModal(); 
 
-  // Configuration du scroll horizontal avec GSAP ScrollTrigger
   useGSAP(() => {
     if (!sectionRef.current || !horizontalContainerRef.current || !projectsWrapperRef.current) return;
 
-    // Calculer la largeur totale nécessaire pour tous les projets
     const projectElements = projectsWrapperRef.current.querySelectorAll(".project-item");
     const projectWidth = window.innerWidth * 0.95; 
     const gap = window.innerWidth >= 768 ? 128 : 80;
     const totalWidth = projects.length * projectWidth + (projects.length - 1) * gap;
     
-    // Définir la largeur du conteneur horizontal
     gsap.set(horizontalContainerRef.current, {
       width: `${totalWidth}px`,
     });
@@ -123,7 +120,6 @@ export default function Projects() {
         const lastProjectLeft = lastProject.offsetLeft;
         const scrollDistance = lastProjectLeft - firstProjectLeft;
         
-        // Créer l'animation de scroll horizontal
         scrollTween = gsap.to(horizontalContainerRef.current, {
           x: -scrollDistance,
           ease: "none",
@@ -138,7 +134,6 @@ export default function Projects() {
           },
         });
 
-        // Animation du titre pour chaque projet - déclenché au scroll horizontal
         projectElements.forEach((projectItem, index) => {
           const titleEl = projectItem.querySelector(".project-title");
           
@@ -182,7 +177,6 @@ export default function Projects() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // ... (Ton code pour bloquer le scroll de la modale reste identique) ...
   useEffect(() => {
     if (selectedProject) {
       scrollPositionRef.current = window.pageYOffset || window.scrollY || document.documentElement.scrollTop || 0;
@@ -209,12 +203,10 @@ export default function Projects() {
     }
   }, [selectedProject]);
 
-  // Mettre à jour l'état de la modal dans le contexte
   useEffect(() => {
     setIsModalOpen(selectedProject !== null);
   }, [selectedProject, setIsModalOpen]);
 
-  // ... (Ton animation de modale reste identique) ...
   useGSAP(() => {
     if (!modalRef.current) return;
     const modalContent = modalRef.current.querySelector("div > div");
@@ -234,14 +226,12 @@ export default function Projects() {
       ref={sectionRef}
       className="relative w-screen overflow-hidden bg-[#1C0207] min-h-screen"
     >
-      {/* Titre "Projets" */}
       <div className="pt-4 sm:py-6">
         <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-center text-[#FFECD1] uppercase" style={{ fontFamily: "'Boldonse', sans-serif" }}>
           Projets
         </h2>
       </div>
 
-      {/* Conteneur horizontal avec scroll-snap */}
       <div
         ref={horizontalContainerRef}
         className="flex items-start min-h-screen pt-4"
@@ -260,7 +250,7 @@ export default function Projects() {
               <div className="flex flex-col h-full justify-between">
                 <h3 
                   className="project-title text-3xl md:text-5xl lg:text-6xl font-bold text-[#FFECD1] uppercase mb-4 md:mb-6 break-words leading-snug"
-                  style={{ lineHeight: "1.35", opacity: 0 }} // Opacité gérée par l'anim individuelle
+                  style={{ lineHeight: "1.35", opacity: 0 }}
                 >
                   {project.title}
                 </h3>
@@ -296,7 +286,6 @@ export default function Projects() {
                       </button>
                     </div>
 
-                    {/* Repo GitHub - À droite de l'image */}
                     {project.githubUrl && (
                       <div className="mt-4 sm:mt-6">
                         <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="project-button-curtain inline-flex items-center justify-center sm:justify-start gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 border-2 border-[#FFECD1] text-[#FFECD1] rounded-full font-semibold text-xs sm:text-sm md:text-base transition-all duration-300 group w-full sm:w-auto">
@@ -315,7 +304,6 @@ export default function Projects() {
         </div>
       </div>
 
-      {/* Modal (Code identique à ton original) */}
       {selectedProject && (
         <div
           ref={modalRef}
@@ -740,7 +728,6 @@ export default function Projects() {
                   )}
                 </div>
               )}
-              {/* Reste du contenu de la modal... */}
             </div>
           </div>
         </div>
